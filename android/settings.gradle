@@ -1,0 +1,3 @@
+rootProject.name = 'CTA_LTOS'
+
+include ':app'
