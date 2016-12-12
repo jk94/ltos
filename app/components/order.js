@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, TextInput } from 'react-native';
 import { Container, Content, Icon, Button, Picker, H2 } from 'native-base';
 
-import { MultilineTextInput } from './customTextbox'
+import { MultilineTextInput } from './multilineTextbox'
 
 import { CategoryName } from '../constants/categoryName';
 const Item = Picker.Item;
@@ -11,7 +11,7 @@ export class NewOrder extends Component {
 
     constructor(props) {
         super(props);
-
+        console.log(props)
         this.state = {
             selectedCategory: 1
         }
@@ -23,13 +23,17 @@ export class NewOrder extends Component {
             <View style={styles.container}>
                 <View style={styles.orderInput}>
                     <H2>Bestellung für {this.renderDate(new Date())}</H2>
-                    {this.renderCategoryPicker()}
+                    <View>
+                        <Text>Kategorie:</Text>
+                        {this.renderCategoryPicker()}
+                    </View>
+
 
                     <Text>Bestellung:</Text>
-                    <TextInput inlineLabel label="Bestellung" placeholder="Pizza Salami" style={styles.input} />
+                    <TextInput placeholder="z.B. Pizza Salami" style={styles.input} underlineColorAndroid='rgba(0,0,0,0)' />
 
-                    <Text>Wünsche</Text>
-                    <MultilineTextInput></MultilineTextInput>
+                    <Text>Wünsche:</Text>
+                    <MultilineTextInput placeholder="z.B. keine Pilze"></MultilineTextInput>
 
                 </View>
 
@@ -76,7 +80,8 @@ const styles = StyleSheet.create({
     container: {
         padding: 5,
         paddingBottom: 10,
-
+        flexDirection: 'column',
+        justifyContent: 'space-between'
     },
     text: {
         fontSize: 18
@@ -89,7 +94,7 @@ const styles = StyleSheet.create({
     },
     buttonGroup: {
         justifyContent: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     buttonGroupView: {
         flex: 1,
@@ -102,16 +107,14 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     orderInput: {
-        justifyContent: 'flex-start'
-    },
-    multiline: {
-        maxHeight: 80,
+        marginBottom: 15
     },
     input: {
+        flexDirection:'row',
         borderWidth: 0.5,
         borderTopWidth: 0,
         borderColor: '#0f0f0f',
-        flex: 1,
+        flex: 0,
         fontSize: 13,
         padding: 4,
         marginBottom: 4,

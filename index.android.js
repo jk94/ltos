@@ -10,7 +10,9 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  Navigator,
+  NativeModules
 } from 'react-native';
 import { Container, Header, Title, Icon, Button, Footer, Content } from 'native-base';
 
@@ -21,7 +23,23 @@ import { OtherPurchaser } from './app/components/otherPurchaser'
 import { NewOrderPage } from './app/pages/newOrder';
 
 export default class CTA_LTOS extends Component {
+  constructor() {
+    super();
+    this.state = {
+      toggled: true
+    }
+  }
+
+  toggleSideMenu() {
+    this.setState({
+      toggled: !this.state.toggled
+    })
+  }
+
   render() {
+    let list = [{ avatar_url: 'https://avatars3.githubusercontent.com/u/8340860?v=3&s=460', name: 'jan', subtitle: 'test' }]
+
+
     let orderItem = {
       orderId: 1,
       orderTime: new Date(),
@@ -49,45 +67,30 @@ export default class CTA_LTOS extends Component {
         orderItemsRender.push(<OrderListItem key={orderItem.orderId} orderItem={orderItem}></OrderListItem>)
       }, this)
     }
-    //<ScrollView style={styles.container}>
-    //</ScrollView>
+    //{orderItemsRender}
+    //<OtherPurchaser orders={orders2}></OtherPurchaser>
     return (
-      <Container>
-        <Header backgroundColor='#00c497'>
-          <Button backgroundColor='#00c497' transparent>
-            <Icon name='ios-menu' />
-          </Button>
-          <Title>Header</Title>
-        </Header>
-        <Content>
-          <NewOrderPage />
+      
+        <Container>
+          <Header backgroundColor='#00c497'>
+            <Button backgroundColor='#00c497' transparent onPress={() => this.toggleSideMenu()}>
+              <Icon name='ios-menu' />
+            </Button>
+            <Title>CTA LTOS</Title>
+          </Header>
+          <Content>
+            <NewOrderPage />
+          </Content>
+          <Footer backgroundColor='#00c497'></Footer>
+        </Container>
 
-          {orderItemsRender}
-          <OtherPurchaser orders={orders2}></OtherPurchaser>
-
-
-        </Content>
-        <Footer backgroundColor='#00c497'></Footer>
-      </Container>
     );
   }
+
 }
 
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+
 });
 
 AppRegistry.registerComponent('CTA_LTOS', () => CTA_LTOS);
